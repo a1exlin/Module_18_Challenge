@@ -21,7 +21,7 @@ const userSchema = new Schema ({
 
     thoughts:[
       {
-        type: ObjectId, ref: 'thought'
+        type: ObjectId, ref: 'Thought'
       },  
     ],
 
@@ -43,10 +43,14 @@ const userSchema = new Schema ({
 );
 
 
-
+// user count
 userSchema.virtual('friendCount').get(function(){
 
     // returns the refered friends length of their message
     return this.friends.length;
-})
+});
+
+const User = model('user', userSchema );
+
+module.exports = User;
 
