@@ -12,7 +12,7 @@ const reactionSchema = new Schema({
 
     },
 
-    reactionsId: {
+    reactionId: {
         type: ObjectId,
         default: () => mongoose.Types.ObjectId(),
     },
@@ -24,8 +24,12 @@ const reactionSchema = new Schema({
     createAt: {
         type: Date,
         default: Date.now,
-        // still need timestamp code
-        // get:
+        // still need timestamp cod
+        // this getter formats the date to desired format using a parameter "time" to allow the date to be recieved as desired format
+        get:(time) => {
+            return new Date.now(time);
+        }
+      
 
 
     },
@@ -53,11 +57,14 @@ const reactionSchema = new Schema({
             maxlenght: 280,
         },
 
-        createAt: {
+        createdAt: {
             type: Date.now,
             default: Date.now,
             // needs timestamp
-            // get:
+            get:(time) => {
+            
+            return new Date(time);
+            }
         },
 
         username: {
@@ -80,7 +87,14 @@ const reactionSchema = new Schema({
 
     );
 
-const Thought = model('Though', thoughtSchema);
+// reaction count 
+thoughtSchema.virtual('reactionCount').get(function(){
+
+    return this.reactions.length;
+
+});
+
+const Thought = model('Thought', thoughtSchema);
 
 module.exports = Thought;
 
