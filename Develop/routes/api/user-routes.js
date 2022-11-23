@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { model } = require('mongoose');
+
 
 const {
     getAllUser,
@@ -8,12 +8,12 @@ const {
     updateUser,
     addFriend,
 
-} = require('../..controllers/user-con');
+} = require('../../controllers/user-con');
 
 router
 .route('/api/users')
 .get(getAllUser)
-.post(createUser)
+.post(createUser);
 
 router
 .route('/api/users/usersId')
@@ -24,6 +24,6 @@ router
 .route('/api/users/friends')
 .post(addFriend)
 
-module.export = router , model;
+module.export = router;
 
 // added code to user-routes

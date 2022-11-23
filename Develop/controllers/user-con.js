@@ -1,12 +1,11 @@
-const {user, thoughts} = require('../models');
-const User = require('../../models/user');
+const { User, Thought } = require('../models');
 
-const userController = {
+const userCon = {
     // /api/users
     // get all users
 
     getAllUser(req, res) {
-        user.find({})
+        User.find({})
         .select('-__v')
         .sort({_id: -1})
         .then(thoughtdb => res.json(thoughtdb))
@@ -18,7 +17,7 @@ const userController = {
 
   // gets the User by id
   getUserById({params}, res) {
-    user.findOne({ _id: params.id})
+    User.findOne({ _id: params.id})
 
       .populate({
         path: 'thoughts',
@@ -45,8 +44,8 @@ const userController = {
   },
 
    // create User
-   createUser({ body }, res) {
-    User.create(body)
+   createUser(req, res) {
+    User.create(req.body)
 
       .then(thoughtdb => res.json(thoughtdb))
 
@@ -89,3 +88,5 @@ const userController = {
   },
 
 }
+
+module.exports = userCon;

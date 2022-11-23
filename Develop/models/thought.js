@@ -1,7 +1,7 @@
 // Still need timestamp code for the commented lines
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model, Types } = require('mongoose');
 const ObjectId = Schema.ObjectId;
+const moment = require('moment');
 
 const reactionSchema = new Schema({
 
@@ -58,13 +58,10 @@ const reactionSchema = new Schema({
         },
 
         createdAt: {
-            type: Date.now,
+            type: Date,
             default: Date.now,
             // needs timestamp
-            get:(time) => {
-            
-            return new Date(time);
-            }
+            get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
         },
 
         username: {

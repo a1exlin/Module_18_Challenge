@@ -1,13 +1,12 @@
 const router = require('express').Router();
 
-const { model } = require('mongoose');
 const {
     getAllThought,
-    getThoughtById,
+    getThoughtByID,
     createThought,
     updateThought,
     // need a bonus delete
-} = require('../..controllers/thought-con')
+} = require('../../controllers/thought-con')
 
 
 
@@ -15,7 +14,7 @@ const {
 // the paths are in the " "
 router.route("/api/thoughts").get(getAllThought).post(createThought);
 // specific ID
-router.route("/api/thoughts/:id").get(getThoughtById).put(updateThought);
+router.route("/api/thoughts/:id").get(getThoughtByID).put(updateThought);
 
 
 
@@ -23,4 +22,4 @@ router.route("/api/thoughts/:id").get(getThoughtById).put(updateThought);
 
 
 
-module.exports = router, model;
+module.exports = router;

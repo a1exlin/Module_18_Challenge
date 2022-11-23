@@ -1,5 +1,4 @@
-const { user, thought } = require('../models');
-const Thought = require('../../models/thought');
+const { user, Thought } = require('../models');
 
 const thoughtCon = {
     // the thought api route
@@ -7,7 +6,7 @@ const thoughtCon = {
 
     getAllThought(req, res) {
 
-        thought.find({})
+        Thought.find()
             .populate({
 
                 path: 'reactions',
@@ -31,7 +30,7 @@ const thoughtCon = {
     },
 
     getThoughtByID({ params }, res) {
-        thought.findOne({ _id: params.id })
+        Thought.findOne({ _id: params.id })
             .populate({
                 path: 'reactions',
                 select: '-__v',
@@ -83,18 +82,18 @@ const thoughtCon = {
     },
 
 
-updateThought({ params, body }, res) {
-    Thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true, })
-        .then(thoughtdb => {
-            if (!thoughtdb) {
-                res.status(404).json({ message: "No thoughts founded with that id!" });
-                return;
-            }
-            res.json(thoughtdb);
-        })
+    updateThought({ params, body }, res) {
+        Thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true, })
+            .then(thoughtdb => {
+                if (!thoughtdb) {
+                    res.status(404).json({ message: "No thoughts founded with that id!" });
+                    return;
+                }
+                res.json(thoughtdb);
+            })
 
-        .catch(err => res.json(err))
-},
+            .catch(err => res.json(err))
+    },
 
 }
 
